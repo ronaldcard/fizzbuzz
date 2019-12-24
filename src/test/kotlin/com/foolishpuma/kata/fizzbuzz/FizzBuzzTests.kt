@@ -12,4 +12,12 @@ class FizzBuzzTests {
 
         assertThat(result).isEqualTo("1")
     }
+
+    @Test
+    fun `when passed a number divisible by 3, fizzBuzz should return "Fizz"`() {
+
+        val result = fizzBuzz(3)
+
+        assertThat(result).isEqualTo("Fizz")
+    }
 }
