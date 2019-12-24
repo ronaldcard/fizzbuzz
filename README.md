@@ -8,8 +8,8 @@
 
 
 ## Truths
-* Every result is "Fizz", "Buzz", "FizzBuzz" or a decimal string.
-* Every decimal result corresponds to its ordinal position.
+* Every result is "Fizz", "Buzz", "FizzBuzz" or a numeric string.
+* Every numeric result corresponds to its ordinal position.
 * Every third result contains "Fizz".
 * Every fifth result contains "Buzz".
 * Every fifteenth result is "FizzBuzz".
