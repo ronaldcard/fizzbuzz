@@ -12,15 +12,11 @@ import java.util.function.Predicate
 class FizzBuzzTests {
 
     private val testRange = IntRange(1, 101)
-    private val isFizz = Condition<String>(Predicate<String> { it == "Fizz" }, "is Fizz")
-    private val isBuzz = Condition<String>(Predicate<String> { it == "Buzz" }, "is Buzz")
-    private val isFizzBuzz = Condition<String>(Predicate<String> { it == "FizzBuzz" }, "is FizzBuzz")
-    private val isNumeric = Condition<String>(Predicate<String> { it.isNumeric() }, "is Numeric")
 
     @Test
     fun `every result is either "Fizz", "Buzz", or a numeric string`() {
         testRange.map { number ->
-            assertThat(fizzBuzz(number)).`is`(anyOf(isFizz, isBuzz, isFizzBuzz, isNumeric))
+            assertThat(fizzBuzz(number)).`is`(anyOf(isFizz(), isBuzz(), isFizzBuzz(), isNumeric()))
         }
     }
 
@@ -63,6 +59,11 @@ class FizzBuzzTests {
     @Ignore
     @Test
     fun `the ordinal position of every "FizzBuzz" result is divisible by 15`() {}
+
+    private fun isFizz() = Condition<String>(Predicate<String> { it == "Fizz" }, "is Fizz")
+    private fun isBuzz() = Condition<String>(Predicate<String> { it == "Buzz" }, "is Buzz")
+    private fun isFizzBuzz() = Condition<String>(Predicate<String> { it == "FizzBuzz" }, "is FizzBuzz")
+    private fun isNumeric() = Condition<String>(Predicate<String> { it.isNumeric() }, "is Numeric")
 
     // TODO - is this the best way to do this?
     private fun String.isNumeric(): Boolean {
