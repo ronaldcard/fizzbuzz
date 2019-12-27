@@ -3,20 +3,18 @@ package com.foolishpuma.kata.fizzbuzz
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Ignore
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
 
-@RunWith(Parameterized::class)
-class FizzBuzzTests(private val fizzBuzzResult: String) {
-    companion object {
-        @JvmStatic
-        @Parameterized.Parameters
-        fun data(): Iterable<String> = (1..101).map { number -> fizzBuzz(number) } // create the test data once
-    }
+class FizzBuzzTests {
+
+    private val testRange = 1..101
 
     @Test
     fun `every result is either "Fizz", "Buzz", or a numeric string`() {
-        assertThat(fizzBuzzResult).isIn("Fizz", "Buzz", "FizzBuzz", fizzBuzzResult.toIntOrNull().toString())
+
+        testRange.map { number ->
+            val result = fizzBuzz(number)
+            assertThat(result).isIn("Fizz", "Buzz", "FizzBuzz", result.toIntOrNull().toString())
+        }
     }
 
     @Ignore
