@@ -3,11 +3,13 @@ package com.foolishpuma.kata.fizzbuzz
 import org.assertj.core.api.Assertions.anyOf
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Condition
-import org.junit.Ignore
 import org.junit.Test
-import java.lang.NumberFormatException
 import java.util.function.Predicate
 
+
+private const val FIZZ = "Fizz"
+private const val BUZZ = "Buzz"
+private const val FIZZ_BUZZ = "FizzBuzz"
 
 class FizzBuzzTests {
 
@@ -27,8 +29,7 @@ class FizzBuzzTests {
         fizzBuzzes
             .filter { result -> result.isNumeric() }
             .forEach { result ->
-                val ordinalPosition = fizzBuzzes.indexOf(result) + 1
-                assertThat(result.toInt()).isEqualTo(ordinalPosition)
+                assertThat(result.toInt()).isEqualTo(fizzBuzzes.indexOf(result).ordinalPosition())
             }
     }
 
@@ -36,38 +37,77 @@ class FizzBuzzTests {
     fun `every third result contains "Fizz"`() {
 
         fizzBuzzes
-            .filterIndexed { index, _ -> (index + 1).rem(3) == 0 }
+            .filterIndexed { index, _ -> index.ordinalPosition().isDivisibleBy3() }
             .forEach { result ->
-                assertThat(result).contains("Fizz")
+                assertThat(result).contains(FIZZ)
             }
     }
 
-    @Ignore
     @Test
-    fun `every fifth result contains "Buzz"`() {}
+    fun `every fifth result contains "Buzz"`() {
 
-    @Ignore
+        fizzBuzzes
+            .filterIndexed { index, _ -> index.ordinalPosition().isDivisibleBy5() }
+            .forEach { result ->
+                assertThat(result).contains(BUZZ)
+            }
+    }
+
     @Test
-    fun `every fifteenth result is "FizzBuzz"`() {}
+    fun `every fifteenth result is "FizzBuzz"`() {
 
-    @Ignore
+        fizzBuzzes
+            .filterIndexed { index, _ -> index.ordinalPosition().isDivisibleBy15() }
+            .forEach { result ->
+                assertThat(result).contains(FIZZ_BUZZ)
+            }
+    }
+
     @Test
-    fun `the ordinal position of every "Fizz" result is divisible by 3`() {}
+    fun `the ordinal position of every "Fizz" result is divisible by 3`() {
 
-    @Ignore
+        fizzBuzzes
+            .filter { result -> result == FIZZ }
+            .forEach { result ->
+                assertThat(fizzBuzzes.indexOf(result).ordinalPosition()).`is`(divisibleBy3())
+            }
+    }
+
     @Test
-    fun `the ordinal position of every "Buzz" result is divisible by 5`() {}
+    fun `the ordinal position of every "Buzz" result is divisible by 5`() {
 
-    @Ignore
+        fizzBuzzes
+            .filter { result -> result == BUZZ }
+            .forEach { result ->
+                assertThat(fizzBuzzes.indexOf(result).ordinalPosition()).`is`(divisibleBy5())
+            }
+    }
+
     @Test
-    fun `the ordinal position of every "FizzBuzz" result is divisible by 15`() {}
+    fun `the ordinal position of every "FizzBuzz" result is divisible by 15`() {
 
-    private fun isFizz() = Condition<String>(Predicate<String> { it == "Fizz" }, "is Fizz")
-    private fun isBuzz() = Condition<String>(Predicate<String> { it == "Buzz" }, "is Buzz")
-    private fun isFizzBuzz() = Condition<String>(Predicate<String> { it == "FizzBuzz" }, "is FizzBuzz")
+        fizzBuzzes
+            .filter { result -> result == FIZZ_BUZZ }
+            .forEach { result ->
+                assertThat(fizzBuzzes.indexOf(result).ordinalPosition()).`is`(divisibleBy15())
+            }
+    }
+
+    private fun isFizz() = Condition<String>(Predicate<String> { it == FIZZ }, "is Fizz")
+    private fun isBuzz() = Condition<String>(Predicate<String> { it == BUZZ }, "is Buzz")
+    private fun isFizzBuzz() = Condition<String>(Predicate<String> { it == FIZZ_BUZZ }, "is FizzBuzz")
     private fun isNumeric() = Condition<String>(Predicate<String> { it.isNumeric() }, "is Numeric")
+    private fun divisibleBy3() = Condition<Int>(Predicate<Int> { it.isDivisibleBy3() }, "is divisible by 3")
+    private fun divisibleBy5() = Condition<Int>(Predicate<Int> { it.isDivisibleBy5() }, "is divisible by 5")
+    private fun divisibleBy15() = Condition<Int>(Predicate<Int> { it.isDivisibleBy15() }, "is divisible by 15")
 
-    // TODO - is this the best way to do this?
+    private fun Int.isDivisibleBy3() = rem(3) == 0
+    private fun Int.isDivisibleBy5() = rem(5) == 0
+    private fun Int.isDivisibleBy15() = rem(15) == 0
+
+    private fun Int.ordinalPosition() = this + 1
+
+    // TODO - is there a better way to do this?
     private fun String.isNumeric(): Boolean {
         return try {
             toInt()
@@ -76,23 +116,4 @@ class FizzBuzzTests {
             false
         }
     }
-//    @Test
-//    fun `when passed a number, fizzBuzz should return that number`() {
-//        assertThat(fizzBuzz(1)).isEqualTo("1")
-//    }
-//
-//    @Test
-//    fun `when passed a number divisible by 3, fizzBuzz should return "Fizz"`() {
-//        assertThat(fizzBuzz(3)).isEqualTo("Fizz")
-//    }
-//
-//    @Test
-//    fun `when passed a number divisible by 5, fizzBuzz should return "Buzz"`() {
-//        assertThat(fizzBuzz(5)).isEqualTo("Buzz")
-//    }
-//
-//    @Test
-//    fun `when passed a number divisible by 15, fizzBuzz should return "FizzBuzz"`() {
-//        assertThat(fizzBuzz(15)).isEqualTo("FizzBuzz")
-//    }
 }
