@@ -38,7 +38,7 @@ I ran across the above Truths and wanted to see if I could write better tests ba
 The traditional scaffolding tests are a great start, but they should be refactored to better tests. This was an attempt at that.
 
 ### Refactored to Declarative Style
-Then refactor to use a more declarative style. ***notice the lack of conditionals. 
+Then I refactored to use a more declarative style. **notice the lack of conditionals**
 ```
 private val fizzes = sequenceOf("", "", "Fizz").infinite()
 private val buzzes = sequenceOf("", "", "", "", "Buzz").infinite()
