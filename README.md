@@ -34,11 +34,11 @@ fun fizzBuzz(number: Int): String {
 ```
 
 ### Tests
-I ran across the above Truths and wanted to see if I could write better tests based on those.
-The traditional scaffolding tests are a great start, but they should be refactored to better tests. This was an attempt at that.
+Once the imperative stype was complete, I refactored the tests.  I ran across the above Truths and wanted to see if I could write better tests based on those.
+The traditional scaffolding tests are a great start, but they should be refactored to better tests. Although, it took a little bit to wrap my brain around the idea of being able to test all the truths at the same time for any range, I think I was able to do that.
 
 ### Refactored to Declarative Style
-Then I refactored to use a more declarative style. **notice the lack of conditionals**
+With the better tests in place, I then refactored the main function to use a more declarative style. **notice the lack of conditionals**
 ```
 private val fizzes = sequenceOf("", "", "Fizz").infinite()
 private val buzzes = sequenceOf("", "", "", "", "Buzz").infinite()
