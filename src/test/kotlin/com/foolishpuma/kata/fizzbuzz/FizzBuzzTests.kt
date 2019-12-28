@@ -11,33 +11,35 @@ import java.util.function.Predicate
 
 class FizzBuzzTests {
 
-    private val testRange = IntRange(1, 101)
+    private val fizzBuzzes = (1..101).map { fizzBuzz(it) }
 
     @Test
     fun `every result is either "Fizz", "Buzz", or a numeric string`() {
-        testRange.map { number ->
-            assertThat(fizzBuzz(number)).`is`(anyOf(isFizz(), isBuzz(), isFizzBuzz(), isNumeric()))
+
+        fizzBuzzes.forEach { result ->
+            assertThat(result).`is`(anyOf(isFizz(), isBuzz(), isFizzBuzz(), isNumeric()))
         }
     }
 
     @Test
     fun `every numeric result corresponds to its ordinal position`() {
 
-        testRange.map { number ->
-            val result = fizzBuzz(number)
-            if (result.isNumeric()) {
-                assertThat(result.toInt()).isEqualTo(number)
+        fizzBuzzes
+            .filter { result -> result.isNumeric() }
+            .forEach { result ->
+                val ordinalPosition = fizzBuzzes.indexOf(result) + 1
+                assertThat(result.toInt()).isEqualTo(ordinalPosition)
             }
-        }
     }
 
-    @Ignore
     @Test
     fun `every third result contains "Fizz"`() {
 
-        testRange.step(3).map { number ->
-            println("[$number]")
-        }
+        fizzBuzzes
+            .filterIndexed { index, _ -> (index + 1).rem(3) == 0 }
+            .forEach { result ->
+                assertThat(result).contains("Fizz")
+            }
     }
 
     @Ignore
