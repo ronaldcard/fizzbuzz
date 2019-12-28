@@ -17,6 +17,4 @@ fun fizzBuzzes(size: Int = 100) =
     .take(size)
     .toList()
 
-fun fizzBuzz(number: Int): String {
-    return fizzBuzzes()[number - 1]
-}
+fun fizzBuzz(number: Int) = fizzBuzzes()[number - 1]
