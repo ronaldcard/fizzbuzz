@@ -1,20 +1,18 @@
 package com.foolishpuma.kata.fizzbuzz
 
-fun <T> Sequence<T>.repeat() = sequence { while (true) yieldAll(this@repeat) }
+fun <T> Sequence<T>.infinite() = sequence { while (true) yieldAll(this@infinite) }
 
-fun fizzes() = sequenceOf("", "", "Fizz").repeat()
-fun buzzes() = sequenceOf("", "", "", "", "Buzz").repeat()
-fun words() = fizzes().zip(buzzes()) { fizzValue, buzzValue -> "$fizzValue$buzzValue" }
-fun numbers() = generateSequence(1) { it.plus(1) }.repeat()
-fun fizzBuzzes(size: Int = 100) =
-    words().zip(numbers()) { word, number ->
+private val fizzes = sequenceOf("", "", "Fizz").infinite()
+private val buzzes = sequenceOf("", "", "", "", "Buzz").infinite()
+private val words = fizzes.zip(buzzes) { fizz, buzz -> "$fizz$buzz" }
+private val numbers = generateSequence(1, Int::inc).infinite()
+private val fizzBuzzes =
+    words.zip(numbers) { word, number ->
         if (word.isEmpty()) {
             number.toString()
         } else {
             word
         }
     }
-    .take(size)
-    .toList()
 
-fun fizzBuzz(number: Int) = fizzBuzzes()[number.minus(1)]
+fun fizzBuzz(number: Int) = fizzBuzzes.take(number).toList()[number.minus(1)]
