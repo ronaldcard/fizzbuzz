@@ -1,14 +1,23 @@
 package com.foolishpuma.kata.fizzbuzz
 
-fun fizzBuzz(number: Int): String {
-    return when {
-        number.isDivisibleBy15() -> "FizzBuzz"
-        number.isDivisibleBy3() -> "Fizz"
-        number.isDivisibleBy5() -> "Buzz"
-        else -> number.toString()
-    }
-}
+fun <T> Sequence<T>.repeat() = sequence { while (true) yieldAll(this@repeat) }
 
-fun Int.isDivisibleBy3() = rem(3) == 0
-fun Int.isDivisibleBy5() = rem(5) == 0
-fun Int.isDivisibleBy15() = rem(15) == 0
+fun fizzes() = sequenceOf("", "", "Fizz").repeat()
+fun buzzes() = sequenceOf("", "", "", "", "Buzz").repeat()
+fun words() = fizzes().zip(buzzes()) { fizzValue, buzzValue -> "$fizzValue$buzzValue" }
+fun numbers() = generateSequence(1) { it + 1 }.repeat()
+fun fizzBuzzes(): List<String> =
+    words()
+        .zip(numbers()) { word, number ->
+            if (word.isEmpty()) {
+                number.toString()
+            } else {
+                word
+            }
+        }
+        .take(100)
+        .toList()
+
+fun fizzBuzz(number: Int): String {
+    return fizzBuzzes().toList()[number - 1]
+}

@@ -102,6 +102,9 @@ private fun divisibleBy3() = Condition<Int>(Predicate<Int> { it.isDivisibleBy3()
 private fun divisibleBy5() = Condition<Int>(Predicate<Int> { it.isDivisibleBy5() }, "is divisible by 5")
 private fun divisibleBy15() = Condition<Int>(Predicate<Int> { it.isDivisibleBy15() }, "is divisible by 15")
 
+private fun Int.isDivisibleBy3() = rem(3) == 0
+private fun Int.isDivisibleBy5() = rem(5) == 0
+private fun Int.isDivisibleBy15() = rem(15) == 0
 private fun Int.ordinalPosition() = plus(1)
 
 // TODO - is there a better way to do this?
