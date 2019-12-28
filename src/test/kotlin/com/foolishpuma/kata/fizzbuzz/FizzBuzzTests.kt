@@ -13,7 +13,7 @@ private const val FIZZ_BUZZ = "FizzBuzz"
 
 class FizzBuzzTests {
 
-    private val fizzBuzzes = (1..101).map { fizzBuzz(it) }
+    private val fizzBuzzes = (1..100).map { fizzBuzz(it) }
 
     @Test
     fun `every result is either "Fizz", "Buzz", or a numeric string`() {
