@@ -20,8 +20,8 @@
 
 ## Goals
 ### Traditional Imperative Style
-I wanted to first accomplish this kata using a traditional imperative style, in Kotlin. 
-This generally means a series of conditionals using Kotlin syntax.
+I wanted to first accomplish this TDD Kata using a traditional imperative style, in Kotlin. 
+This generally means a series of conditionals using Kotlin syntax such as:
 ```
 fun fizzBuzz(number: Int): String {
     return when {
