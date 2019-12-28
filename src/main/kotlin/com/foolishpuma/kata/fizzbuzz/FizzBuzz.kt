@@ -5,7 +5,7 @@ fun <T> Sequence<T>.repeat() = sequence { while (true) yieldAll(this@repeat) }
 fun fizzes() = sequenceOf("", "", "Fizz").repeat()
 fun buzzes() = sequenceOf("", "", "", "", "Buzz").repeat()
 fun words() = fizzes().zip(buzzes()) { fizzValue, buzzValue -> "$fizzValue$buzzValue" }
-fun numbers() = generateSequence(1) { it + 1 }.repeat()
+fun numbers() = generateSequence(1) { it.plus(1) }.repeat()
 fun fizzBuzzes(size: Int = 100) =
     words().zip(numbers()) { word, number ->
         if (word.isEmpty()) {
@@ -17,4 +17,4 @@ fun fizzBuzzes(size: Int = 100) =
     .take(size)
     .toList()
 
-fun fizzBuzz(number: Int) = fizzBuzzes()[number - 1]
+fun fizzBuzz(number: Int) = fizzBuzzes()[number.minus(1)]
