@@ -10,7 +10,12 @@ private val fizzBuzzes =
 
 fun fizzBuzz(number: Int) = fizzBuzzes.take(number).toList()[number.minus(1)]
 
-private fun <T> Sequence<T>.infinite() = sequence { while (true) yieldAll(this@infinite) }
+private fun <Type> Sequence<Type>.infinite() = sequence {
+    while (true) {
+        yieldAll(this@infinite)
+    }
+}
+
 private fun wordOrNumber(): (String, Int) -> String {
     return fun(word: String, number: Int): String {
         return if (word.isEmpty()) {
