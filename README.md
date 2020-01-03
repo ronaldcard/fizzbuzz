@@ -20,8 +20,8 @@
 
 ## Goals
 ### Traditional Imperative Style
-I wanted to first accomplish this kata using a traditional imperative style, in Kotlin. 
-This generally means a series of conditionals using Kotlin syntax.
+I wanted to first accomplish this TDD Kata using a traditional imperative style, in Kotlin. 
+This generally means a series of conditionals using Kotlin syntax such as:
 ```
 fun fizzBuzz(number: Int): String {
     return when {
@@ -34,11 +34,11 @@ fun fizzBuzz(number: Int): String {
 ```
 
 ### Tests
-I ran across the above Truths and wanted to see if I could write better tests based on those.
-The traditional scaffolding tests are a great start, but they should be refactored to better tests. This was an attempt at that.
+Once the imperative stype was complete, I refactored the tests.  I ran across the above Truths and wanted to see if I could write better tests based on those.
+The traditional scaffolding tests were a great start, but I think these 'truths' are better (I wish I had better words to explain this).
 
 ### Refactored to Declarative Style
-Then refactor to use a more declarative style. ***notice the lack of conditionals. 
+With the better tests in place, I then refactored the main function to use a more declarative style. **notice the lack of conditionals**
 ```
 private val fizzes = sequenceOf("", "", "Fizz").infinite()
 private val buzzes = sequenceOf("", "", "", "", "Buzz").infinite()
